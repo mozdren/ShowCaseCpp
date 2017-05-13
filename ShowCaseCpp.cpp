@@ -4,64 +4,48 @@
 
 #include <iostream>
 
+/**
+ * Prints hello world message using shared pointer to a service.
+ *
+ * @param servicePtr shared pointer to a service that provides the hello string
+ */
+void printHelloWorld(std::shared_ptr<Services::IHelloService> servicePtr)
+{
+  // check pointer to the service
+  if (servicePtr)
+  {
+    // get hello string result
+    auto helloResult = servicePtr->getHelloString();
+    
+    // check the result of the service call
+    if (helloResult.isSuccess()) 
+    {
+      // if OK pring hello
+      std::cout << helloResult.getValue() << std::endl;
+    }
+    else
+    {
+      // else print error message
+      std::cerr << helloResult.getMessage() << std::endl;
+    }
+  }
+  else 
+  {
+    std::cerr << "Could not get the service pointer!" << std::endl;
+  }
+}
+
 int main()
 {
+  // Get services
   auto czService = Services::CzechHelloService::GetService();
   auto geService = Services::GermanHelloService::GetService();
   auto enService = Services::EnglishHelloService::GetService();
 
-  // get czech hello service
-  if (czService)
-  {
-    auto helloResult = czService->getHelloString();
-    if (helloResult.isSuccess()) 
-    {
-      std::cout << helloResult.getValue() << std::endl;
-    }
-    else
-    {
-      std::cerr << helloResult.getMessage() << std::endl;
-    }
-  }
-  else 
-  {
-    std::cerr << "Could not get czech service!" << std::endl;
-  }
-
-  // get german hello service
-  if (geService)
-  {
-    auto helloResult = geService->getHelloString();
-    if (helloResult.isSuccess())
-    {
-      std::cout << helloResult.getValue() << std::endl;
-    }
-    else
-    {
-      std::cerr << helloResult.getMessage() << std::endl;
-    }
-  }
-  else 
-  {
-    std::cerr << "Could not get german service!" << std::endl;
-  }
-
-  // get english hello service
-  if (enService)
-  {
-    auto helloResult = enService->getHelloString();
-    if (helloResult.isSuccess())
-    {
-      std::cout << helloResult.getValue() << std::endl;
-    }
-    else
-    {
-      std::cerr << helloResult.getMessage() << std::endl;
-    }
-  }
-  else
-  {
-    std::cerr << "Could not get english service!" << std::endl;
-  }
+  printHelloWorld(czService);
+  printHelloWorld(geService);
+  printHelloWorld(enService);
+  
+  return 0;
 }
 

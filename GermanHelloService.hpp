@@ -25,9 +25,9 @@ namespace Services
     // definitions for IHelloService
 
     /**
-    * Returns hello string in czech language.
+    * Returns hello string in german language.
     *
-    * @return hello string in czech language
+    * @return hello string in german language
     */
     virtual StringResult getHelloString() override;
 
