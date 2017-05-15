@@ -25,11 +25,18 @@ namespace Services
     // definitions for IHelloService
 
     /**
-    * Returns hello string in czech language.
+    * Returns hello string in english language.
     *
-    * @return hello string in czech language
+    * @return hello string in english language
     */
     virtual StringResult getHelloString() override;
+
+    /**
+     * Returns hello string in english language asynchronously.
+     *
+     * @return future hello string in english language
+     */
+    virtual std::future<StringResult> getHelloStringAsync() override;
 
     /// Destructor
     ~EnglishHelloService();

@@ -45,7 +45,47 @@ int main()
   printHelloWorld(czService);
   printHelloWorld(geService);
   printHelloWorld(enService);
-  
+
+  // testing async method calls
+  if (!czService || !geService || !enService)
+  {
+    std::cerr << "Could not get services!" << std::endl;
+    return 0;
+  }
+
+  try 
+  {
+    auto czResultFuture = czService->getHelloStringAsync();
+    auto geResultFuture = geService->getHelloStringAsync();
+    auto enResultFuture = enService->getHelloStringAsync();
+
+    czResultFuture.wait();
+    geResultFuture.wait();
+    enResultFuture.wait();
+
+    Services::StringResult czResult = czResultFuture.get();
+    Services::StringResult geResult = geResultFuture.get();
+    Services::StringResult enResult = enResultFuture.get();
+
+    if (czResult.isSuccess() && 
+        geResult.isSuccess() && 
+        enResult.isSuccess())
+    {
+      std::cout 
+        << czResult.getValue() << std::endl
+        << geResult.getValue() << std::endl
+        << enResult.getValue() << std::endl;
+    }
+    else
+    {
+      std::cerr << "Could'n get hello string" << std::endl;
+    }
+  }
+  catch(const std::future_error &error)
+  {
+    std::cerr << error.what() << std::endl;
+  }
+
   return 0;
 }
 

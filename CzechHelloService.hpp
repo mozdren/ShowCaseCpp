@@ -31,6 +31,13 @@ namespace Services
      */
     virtual StringResult getHelloString() override;
 
+    /**
+     * Returns hello string in czech language asynchronously.
+     *
+     * @return future hello string in czech language
+     */
+    virtual std::future<StringResult> getHelloStringAsync() override;
+
     /// Destructor
     ~CzechHelloService();
 

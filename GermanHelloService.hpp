@@ -31,6 +31,13 @@ namespace Services
     */
     virtual StringResult getHelloString() override;
 
+    /**
+     * Returns hello string in german language asynchronously.
+     *
+     * @return future hello string in german language
+     */
+    virtual std::future<StringResult> getHelloStringAsync() override;
+
     /// Destructor
     ~GermanHelloService();
 

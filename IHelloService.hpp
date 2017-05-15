@@ -13,12 +13,18 @@ namespace Services
   public:
 
     /**
-     * Async method returning hello string.
+     * Method returning hello string.
      *
      * @return object that will contain the result
      */
     virtual StringResult getHelloString() = 0;
 
+    /**
+     * Async method returning hello string
+     *
+     * @return result object containing result in the future object
+     */
+    virtual std::future<StringResult> getHelloStringAsync() = 0;
   };
 
 }
